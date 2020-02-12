@@ -1,6 +1,21 @@
 'use strict';
 
 const monsters = [];
+const keywordArray = [];
+
+$.ajax('../data/page-1.json', {method: 'GET', dataType: 'JSON',})
+  .then(data => {
+    data.forEach(value => {
+    new HornMon(value).render();
+    console.log('hi');
+    if (!keywordArray.includes(value.keyword)){
+      keywordArray.push(value.keyword);
+    }
+  });
+  populateDropDown();
+  let x = $('section');
+  console.log('sections yo!', x);
+  });
 
 function HornMon(mon){
   // eslint-disable-next-line camelcase
@@ -15,25 +30,54 @@ function HornMon(mon){
 HornMon.prototype.render = function() {
   let template = $('#photo-template').html();
 
-  let $newSection = $('<section></section>');
-  $newSection.html(template);
-  $newSection.find('img').attr('src', this.image_url);
-  $newSection.find('h2').text(this.title);
-  $newSection.find('p').text(this.description);
-  // $newSection.attr('keyword', this.keyword);
-  // $newSection.attr('horns', this.horns);
+  let newSection = $('<section></section>');
+  newSection.html(template);
+  newSection.find('img').attr('src', this.image_url);
+  newSection.find('h2').text(this.title);
+  newSection.find('p').text(this.description);
+  newSection.attr('keyword', this.keyword);
+  newSection.attr('horns', this.horns);
 
-  $('main').append($newSection);
+  $('main').append(newSection);
 };
 
-$.ajax('../data/page-1.json', {method: 'GET', dataType: 'JSON',})
-  .then(data => {data.forEach(value => {
-    new HornMon(value).render();
-    console.log('hi');
-  });
-  });
+
+
 
 console.log(monsters);
+console.log('keywords', keywordArray);
+
+let filterOptions = $('select').html();
+
+function populateDropDown() {
+  keywordArray.forEach( word => {
+    console.log('values', word);
+    let $options = $('<option></option>');
+    $options.text(word);
+    $options.val(word);
+    $('select').append($options);
+  
+  })
+}
+
+
+function containsKeyword() {
+  console.log('I am beginning the callback function');
+  const sections = $('section');
+  sections.each(function() {
+    if ( value.attr('keyword') === word )  {
+      $(this).show();
+    }else {
+      $(this).hide();
+    }
+    console.log('checking attr', value.attr);
+  })
+
+  
+}
+
+$('seclect').change(containsKeyword);
+
 
 $(function() {
   console.log('ready');
