@@ -3,7 +3,7 @@
 const monsters = [];
 const keywordArray = [];
 
-$.ajax('/data/page-1.json', {method: 'GET', dataType: 'JSON',})
+$.ajax('data/page-1.json', {method: 'GET', dataType: 'JSON',})
   .then(data => {
     data.forEach(value => {
       new HornMon(value).render();
