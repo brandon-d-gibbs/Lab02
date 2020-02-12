@@ -7,14 +7,14 @@ $.ajax('data/page-1.json', {method: 'GET', dataType: 'JSON',})
   .then(data => {
     data.forEach(value => {
       new HornMon(value).render();
-      console.log('hi');
+      // console.log('hi');
       if (!keywordArray.includes(value.keyword)){
         keywordArray.push(value.keyword);
       }
     });
     populateDropDown();
-    let x = $('section');
-    console.log('sections yo!', x);
+    // let x = $('section');
+    // console.log('sections yo!', x);
   });
 
 function HornMon(mon){
@@ -51,7 +51,7 @@ console.log('keywords', keywordArray);
 
 function populateDropDown() {
   keywordArray.forEach( word => {
-    console.log('values', word);
+    // console.log('values', word);
     let $options = $('<option></option>');
     $options.text(word);
     $options.val(word);
@@ -62,10 +62,11 @@ function populateDropDown() {
 
 function containsKeyword(event) {
   const sections = $('section');
-  $(sections).hide();
-  console.log(sections);
+  // $(sections).hide();
+  // console.log(sections);
+  // console.log('this', this.value);
   sections.each(function(index, value) {
-    console.log(value);
+    // console.log(value);
     if ( $(value).attr('keyword') === event.target.value ){
       $(value).show();
     }else {
