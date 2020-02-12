@@ -3,7 +3,6 @@
 const monsters = [];
 const keywordArray = [];
 
-
 $.ajax('data/page-1.json', {method: 'GET', dataType: 'JSON',})
   .then(data => {
     data.forEach(value => {
