@@ -1,15 +1,4 @@
 'use strict';
-console.log('hi1');
-
-// $.ajax('./data/page-1.json', {method: 'GET', dataType: 'JSON',}).then(data => {
-
-//   console.log('hi');
-//   console.log(data);
-//   data.forEach(mon => {
-//     new HornMon(mon);
-//   });
-// });
-
 
 const monsters = [];
 
@@ -23,14 +12,30 @@ function HornMon(mon){
   monsters.push(this);
 }
 
+HornMon.prototype.render = function() {
+  let template = $('#photo-template').html();
 
+  let $newSection = $('<section></section>');
+  $newSection.html(template);
+  $newSection.find('img').attr('src', this.image_url);
+  $newSection.find('h2').text(this.title);
+  $newSection.find('p').text(this.description);
+  // $newSection.attr('keyword', this.keyword);
+  // $newSection.attr('horns', this.horns);
 
+  $('main').append($newSection);
+};
 
 $.ajax('../data/page-1.json', {method: 'GET', dataType: 'JSON',})
-  .then(data => {
-    data.forEach(value => new HornMon(value));
+  .then(data => {data.forEach(value => {
+    new HornMon(value).render();
+    console.log('hi');
+  });
   });
 
-
 console.log(monsters);
+
+$(function() {
+  console.log('ready');
+});
 
