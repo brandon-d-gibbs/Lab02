@@ -6,15 +6,15 @@ const keywordArray = [];
 $.ajax('../data/page-1.json', {method: 'GET', dataType: 'JSON',})
   .then(data => {
     data.forEach(value => {
-    new HornMon(value).render();
-    console.log('hi');
-    if (!keywordArray.includes(value.keyword)){
-      keywordArray.push(value.keyword);
-    }
-  });
-  populateDropDown();
-  let x = $('section');
-  console.log('sections yo!', x);
+      new HornMon(value).render();
+      console.log('hi');
+      if (!keywordArray.includes(value.keyword)){
+        keywordArray.push(value.keyword);
+      }
+    });
+    populateDropDown();
+    let x = $('section');
+    console.log('sections yo!', x);
   });
 
 function HornMon(mon){
@@ -47,7 +47,7 @@ HornMon.prototype.render = function() {
 console.log(monsters);
 console.log('keywords', keywordArray);
 
-let filterOptions = $('select').html();
+// let filterOptions = $('select').html();
 
 function populateDropDown() {
   keywordArray.forEach( word => {
@@ -56,27 +56,25 @@ function populateDropDown() {
     $options.text(word);
     $options.val(word);
     $('select').append($options);
-  
-  })
+  });
 }
 
 
-function containsKeyword() {
-  console.log('I am beginning the callback function');
+function containsKeyword(event) {
   const sections = $('section');
-  sections.each(function() {
-    if ( value.attr('keyword') === word )  {
-      $(this).show();
+  $(sections).hide();
+  console.log(sections);
+  sections.each(function(index, value) {
+    console.log(value);
+    if ( $(value).attr('keyword') === event.target.value ){
+      $(value).show();
     }else {
-      $(this).hide();
+      $(value).hide();
     }
-    console.log('checking attr', value.attr);
-  })
-
-  
+  });
 }
 
-$('seclect').change(containsKeyword);
+$('select').change(containsKeyword);
 
 
 $(function() {
