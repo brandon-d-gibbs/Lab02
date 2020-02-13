@@ -41,9 +41,6 @@ HornMon.prototype.render = function() {
   $('main').append(newSection);
 };
 
-
-
-
 console.log(monsters);
 console.log('keywords', keywordArray);
 
