@@ -59,7 +59,6 @@ function populateDropDown() {
   });
 }
 
-
 function containsKeyword(event) {
   const sections = $('section');
   // $(sections).hide();
